@@ -10,14 +10,11 @@ def send(e):
     meteria = str(entry_materia.get())
     if assunto != '' or meteria != '':
         
-        #entry_assunto.delete(0, len(assunto))
-        #entry_materia.delete(0, len(meteria))
         mesageLabel = gpt.chat(meteria, assunto)
         respostas = gpt.respostas(mesageLabel)
         print(respostas)
         j= 150.7725372314453
         for i in mesageLabel:
-            #print(i)
             if len(i) <=84:
                 Checkbutton(win, text=i, font=("MontserratRoman SemiBold", 12 * -1), background="#FAF9F6").place(x = 388.86706542968744, y=j,)
             else:
