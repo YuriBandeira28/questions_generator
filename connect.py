@@ -3,7 +3,7 @@ import config
 
 def connect():
     try:
-        conn = psycopg.
+        conn = psycopg.Connection()
         
         return conn
     except Exception as e:

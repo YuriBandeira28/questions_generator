@@ -1,5 +1,3 @@
-
-
 def salva_pdf():
     pass
 
