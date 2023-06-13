@@ -1,0 +1,16 @@
+Resposta 1 - Para definir uma classe em Python, utiliza-se a palavra-chave "class" seguida do nome da classe e dois pontos. Dentro da classe, são definidos os atributos e métodos da mesma.
+
+Resposta 2 - Um método em uma classe Python é uma função definida dentro da classe que opera em objetos dessa classe. Métodos são responsáveis por definir o comportamento dos objetos.
+
+Resposta 3 - O construtor em Python é definido utilizando o método especial __init__. Esse método é executado sempre que um objeto é instanciado a partir da classe.
+
+Resposta 4 - O self em um método de uma classe Python é uma referência ao objeto atual. É utilizado para acessar os atributos e métodos do objeto em questão.
+
+Resposta 5 - A herança em Python é feita utilizando a sintaxe "class Filha(Pai):", onde "Pai" é a classe da qual "Filha" herda os atributos e métodos.
+
+Resposta 6 - Um método estático em Python é um método que pode ser chamado sem a necessidade de instanciar um objeto da classe. Utiliza-se a palavra-chave "@staticmethod" para definir um método estático.
+
+Resposta 7 - Para chamar um método de uma classe em Python, utiliza-se a sintaxe "objecto.metodo()". "objecto" é o objeto a partir do qual o método será chamado.
+
+Resposta 8 - A sobrecarga de operadores em Python é a capacidade de definir o comportamento de operadores como +, -, *, /, entre outros, para objetos de uma classe. Isso é feito através de métodos especiais como "__add__" e "__sub__".
+

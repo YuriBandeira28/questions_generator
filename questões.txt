@@ -1,0 +1,24 @@
+Questão 1 - Como se define uma classe em Python? 
+
+
+Questão 2 - O que é um método em uma classe Python? 
+
+
+Questão 3 - Como se define um construtor em Python? 
+
+
+Questão 4 - O que é o self em um método de uma classe Python? 
+
+
+Questão 5 - Como se faz herança em Python? 
+
+
+Questão 6 - O que é um método estático em Python? 
+
+
+Questão 7 - Como chamar um método de uma classe em Python? 
+
+
+Questão 8 - O que é a sobrecarga de operadores em Python? 
+
+
