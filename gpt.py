@@ -13,7 +13,7 @@ def chat(materia, assunto):
             "role": "user",
             "content": f"""somente gere 8 questões de {materia} sobre {assunto} numeradas de 1 a 8 com um prefixo de
                          "Questão <número da questão> - ", 
-                         separe cada uma por '========================'"""
+                         separe cada uma por '========================', só não ponha isso depois da ultima questão"""
             }]
     }
     
@@ -24,9 +24,18 @@ def chat(materia, assunto):
         res = res['choices'][0]['message']['content']
         res = str(res)
         questions = res.split('========================\n')
+        questions2 = []
+        
+        for q in questions:
+            try:
+                q = q.replace("\n", "")
+                questions2.append(q)
+            except:
+                questions2.append(q)
     except:
-        questions = None
-    return questions
+        questions2 = None
+
+    return questions2
 
 
 def respostas(questoes):
@@ -39,7 +48,7 @@ def respostas(questoes):
             "role": "user",
             "content": f"""somente responda essas questões {questoes} numerando elas  de 1 a 8, 
                     com um prefixo de "Resposta <número da resposta> - ", 
-                    separe cada uma por '========================'"""
+                    separe cada uma por '========================', só não ponha isso depois da ultima questão"""
             }]
     }
     data = json.dumps(data)
@@ -48,10 +57,20 @@ def respostas(questoes):
     res = res['choices'][0]['message']['content']
     res = str(res)
     respostas = res.split('========================\n')
-    return respostas
+
+    respostas2 = []
+
+    for r in respostas:
+        try:
+            r = r.replace("\n", "")
+            respostas2.append(r)
+        except:
+            respostas2.append(r)
+            
+    return respostas2
 
 
-## testes
+## para testes
 
 """
 quest = chat("Python", "Orientação a objetos")

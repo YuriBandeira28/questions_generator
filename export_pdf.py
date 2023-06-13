@@ -11,10 +11,11 @@ try:
         y -=30
         pdf.drawString(20,y, f'{pergunta}')
         y -=20
-        pdf.drawString(30,y, f'R: {res[i]}')
+        pdf.drawString(30,y, res[i])
 
     pdf.setTitle("Gabarito")
     pdf.setFont("Helvetica-Oblique", 14)
     pdf.save()
-except:
+except Exception as e:
+    print(e)
     print('erro')
