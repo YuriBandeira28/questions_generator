@@ -11,9 +11,9 @@ def chat(materia, assunto):
         "model": config.model,
         "messages":[{
             "role": "user",
-            "content": f"""somente gere 8 questões de {materia} sobre {assunto} numeradas de 1 a 8 com um prefixo de
+            "content": f"""FAÇA EXATAMENTE DA FORMA QUE SE PEDE, gere 7 questões de {materia} sobre {assunto} numeradas de 1 a 7 com um prefixo de
                          "Questão <número da questão> - ", 
-                         separe cada uma por '========================', só não ponha isso depois da ultima questão"""
+                         separe cada uma, exceto a ultima, por 'FIM DA QUESTÃO'"""
             }]
     }
     
@@ -23,18 +23,24 @@ def chat(materia, assunto):
         res = req.json()
         res = res['choices'][0]['message']['content']
         res = str(res)
-        questions = res.split('========================\n')
+        questions = res.split('FIM DA QUESTÃO\n')
         questions2 = []
         
         for q in questions:
             try:
                 q = q.replace("\n", "")
+                q = q.replace("Questão ", '')
+                try:
+                    q = q.replace("FIM DA QUESTÃO", '')
+                except:
+                    pass
+
                 questions2.append(q)
             except:
                 questions2.append(q)
     except:
         questions2 = None
-
+    print("questoes - ", questions2)
     return questions2
 
 
@@ -46,9 +52,9 @@ def respostas(questoes):
         "model": config.model,
         "messages":[{
             "role": "user",
-            "content": f"""somente responda essas questões {questoes} numerando elas  de 1 a 8, 
+            "content": f"""FAÇA EXATAMENTE DA FORMA QUE SE PEDE,  responda essas questões {questoes} numerando elas  de 1 a 7, 
                     com um prefixo de "Resposta <número da resposta> - ", 
-                    separe cada uma por '========================', só não ponha isso depois da ultima questão"""
+                    separe cada uma, exceto a ultima, por 'FIM DA RESPOSTA'"""
             }]
     }
     data = json.dumps(data)
@@ -56,17 +62,27 @@ def respostas(questoes):
     res = req.json()
     res = res['choices'][0]['message']['content']
     res = str(res)
-    respostas = res.split('========================\n')
+    respostas = res.split('FIM DA RESPOSTA\n')
 
     respostas2 = []
 
-    for r in respostas:
+    for i, r in enumerate(respostas):
         try:
             r = r.replace("\n", "")
+            r = r.replace(f"Resposta {i + 1} -", "R:")
+            try:
+                r = r.replace("FIM DA QUESTÃO", '')
+            except:
+                pass
+            try:
+                r = r.replace("FIM DA RESPOSTA", '')
+            except:
+                pass
             respostas2.append(r)
         except:
             respostas2.append(r)
-            
+
+    print("respostas - ", respostas2)
     return respostas2
 
 
