@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gerador de Questões</title>
+</head>
+<body>
+    <h1>Gerador de Questões</h1>
+    <form method="POST" action="/">
+        <label for="materia">Matéria:</label>
+        <input type="text" id="materia" name="materia"><br><br>
+        <label for="assunto">Assunto:</label>
+        <input type="text" id="assunto" name="assunto"><br><br>
+        <input type="submit" value="Gerar Questões">
+    </form>
+
+    <h2>Questões Geradas:</h2>
+    {% if respostas %}
+        <ul>
+        {% for resposta in respostas %}
+            <li>{{ resposta }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhuma questão gerada.</p>
+    {% endif %}
+</body>
+</html>
