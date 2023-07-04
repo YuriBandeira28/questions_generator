@@ -14,10 +14,11 @@
     </form>
 
     <h2>Questões Geradas:</h2>
-    {% if respostas %}
+    {% if perguntas %}
         <ul>
-        {% for resposta in respostas %}
-            <li>{{ resposta }}</li>
+        {% for pergunta in perguntas %}
+            <li>{{ pergunta }}</li>
+            <li>{{ respostas[perguntas.index(pergunta)] }}</li>
         {% endfor %}
         </ul>
     {% else %}

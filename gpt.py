@@ -18,6 +18,7 @@ def chat(materia, assunto):
     }
     
     data = json.dumps(data)
+    
     try:
         req = requests.post(url = config.url, headers= headers, data=data)
         res = req.json()
@@ -38,8 +39,10 @@ def chat(materia, assunto):
                 questions2.append(q)
             except:
                 questions2.append(q)
-    except:
+    except Exception as e:
+        print(e)
         questions2 = None
+
     print("questoes - ", questions2)
     return questions2
 

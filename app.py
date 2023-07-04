@@ -9,9 +9,9 @@ ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 
 def send(assunto, materia):
     if assunto != '' or materia != '':
-        messageLabel = gpt.chat(materia, assunto)
-        respostas = gpt.respostas(messageLabel)
-        return respostas
+        preguntas = gpt.chat(materia, assunto)
+        respostas = gpt.respostas(preguntas)
+        return preguntas, respostas
     else:
         return 'Por favor, insira algo na caixa de texto'
 
@@ -23,8 +23,8 @@ def index():
     if request.method == 'POST':
         assunto = request.form.get('assunto')
         materia = request.form.get('materia')
-        respostas = send(assunto, materia)
-        return render_template('index.html', respostas=respostas, assunto=assunto, materia=materia)
+        preguntas, respostas = send(assunto, materia)
+        return render_template('index.html', perguntas = preguntas, respostas=respostas, assunto=assunto, materia=materia)
     return render_template('index.html')
 
 if __name__ == '__main__':
