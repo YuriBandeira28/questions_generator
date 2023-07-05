@@ -2,27 +2,54 @@
 <html>
 <head>
     <title>Gerador de Questões</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Gerador de Questões</h1>
-    <form method="POST" action="/">
-        <label for="materia">Matéria:</label>
-        <input type="text" id="materia" name="materia"><br><br>
-        <label for="assunto">Assunto:</label>
-        <input type="text" id="assunto" name="assunto"><br><br>
-        <input type="submit" value="Gerar Questões">
-    </form>
+    <div class="container">
+        <h1>Gerador de Questões</h1>
+        <div class="card">
+            <div class="card-body">
+                <form method="POST" action="/">
+                    <div class="form-group">
+                        <label for="materia">Matéria:</label>
+                        <input type="text" class="form-control" id="materia" name="materia">
+                    </div>
+                    <div class="form-group">
+                        <label for="assunto">Assunto:</label>
+                        <input type="text" class="form-control" id="assunto" name="assunto">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Gerar Questões</button>
+                </form>
+            </div>
+        </div>
 
-    <h2>Questões Geradas:</h2>
-    {% if perguntas %}
-        <ul>
-        {% for pergunta in perguntas %}
-            <li>{{ pergunta }}</li>
-            <li>{{ respostas[perguntas.index(pergunta)] }}</li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>Nenhuma questão gerada.</p>
-    {% endif %}
+        <h2>Questões Geradas:</h2>
+
+        {% if perguntas %}
+            <div class="card mb-3" style="background-color: #d1d1d1;">
+                <div class="card-body">
+                    <ul>
+                    {% for pergunta in perguntas %}
+                        <li>{{ pergunta }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <h2>Respostas Geradas:</h2>
+            <div class="card" style="background-color: #d1d1d1;">
+                <div class="card-body">
+                    <ul>
+                    {% for resposta in respostas %}
+                        <li>{{ resposta }}</li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% else %}
+            <p>Nenhuma questão gerada.</p>
+        {% endif %}
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
