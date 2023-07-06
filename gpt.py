@@ -23,7 +23,6 @@ def chat(materia, assunto):
         req = requests.post(url = config.url, headers= headers, data=data)
         res = req.json()
         res = res['choices'][0]['message']['content']
-        res = str(res)
         questions = res.split('FIM DA QUESTÃO\n')
         questions2 = []
         
@@ -43,7 +42,7 @@ def chat(materia, assunto):
         print(e)
         questions2 = None
 
-    print("questoes - ", questions2)
+    #print("questoes - ", questions2)
     return questions2
 
 
@@ -57,52 +56,29 @@ def respostas(questoes):
             "role": "user",
             "content": f"""FAÇA EXATAMENTE DA FORMA QUE SE PEDE,  responda essas questões {questoes} numerando elas  de 1 a 7, 
                     com um prefixo de "Resposta <número da resposta> - ", 
-                    separe cada uma, exceto a ultima, por 'FIM DA RESPOSTA'"""
+                    separe cada uma por 'FIM DA RESPOSTA', exceto a ultima, """
             }]
     }
     data = json.dumps(data)
     req = requests.post(url = config.url, headers= headers, data=data)
     res = req.json()
     res = res['choices'][0]['message']['content']
-    res = str(res)
     respostas = res.split('FIM DA RESPOSTA\n')
 
     respostas2 = []
 
     for i, r in enumerate(respostas):
         try:
-            r = r.replace("\n", "")
-            r = r.replace(f"Resposta {i + 1} -", "R:")
             try:
-                r = r.replace("FIM DA QUESTÃO", '')
-            except:
-                pass
-            try:
+                r = r.replace("\n", "")
+                r = r.replace(f"Resposta {i + 1} -", "R:")
                 r = r.replace("FIM DA RESPOSTA", '')
-            except:
+                respostas2.append(r)
+            except Exception:
                 pass
-            respostas2.append(r)
         except:
             respostas2.append(r)
 
-    print("respostas - ", respostas2)
+    #print("respostas - ", respostas2)
     return respostas2
 
-
-## para testes
-
-"""
-quest = chat("Python", "Orientação a objetos")
-print("questões - ", quest)
-with open("questões.txt", "w") as q:
-    for qu in quest:
-        q.write(qu)
-        q.write("\n\n")
-
-resp = respostas(quest)
-print("repostas - ", resp)
-with open("respostas.txt", "w") as q:
-    for r in resp:
-        q.write(r)
-        q.write("\n\n")
-"""

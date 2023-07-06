@@ -3,6 +3,14 @@
 <head>
     <title>Gerador de Questões</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</Aqui está o código atualizado com o botão e a rota para a função `export_pdf()`:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gerador de Questões</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
@@ -28,26 +36,29 @@
         {% if perguntas %}
             <div class="card mb-3" style="background-color: #d1d1d1;">
                 <div class="card-body">
-                    <ul>
+                    <ol style="list-style: none;">
                     {% for pergunta in perguntas %}
                         <li>{{ pergunta }}</li>
+                        <li>{{respostas[perguntas.index(pergunta)] }}<li/>
+                        <br>
                     {% endfor %}
-                    </ul>
+                    </ol>
                 </div>
             </div>
-            <h2>Respostas Geradas:</h2>
-            <div class="card" style="background-color: #d1d1d1;">
-                <div class="card-body">
-                    <ul>
-                    {% for resposta in respostas %}
-                        <li>{{ resposta }}</li>
-                    {% endfor %}
-                    </ul>
-                </div>
-            </div>
+            
+
+            <!-- Botão para gerar o PDF -->
+            <form method="POST" action="/export" style="margin-top: 20px;">
+                <input type="hidden" name="materia" value="{{ materia }}">
+                <input type="hidden" name="assunto" value="{{ assunto }}">
+                <button type="submit" class="btn btn-primary">Gerar PDF</button>
+            </form>
         {% else %}
             <p>Nenhuma questão gerada.</p>
         {% endif %}
+        
+        <!-- Botão de Reset -->
+        <a href="/reset" class="btn btn-danger">Reset</a>
     </div>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
