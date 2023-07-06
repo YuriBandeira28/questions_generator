@@ -11,7 +11,7 @@ def chat(materia, assunto):
         "model": config.model,
         "messages":[{
             "role": "user",
-            "content": f"""FAÇA EXATAMENTE DA FORMA QUE SE PEDE, gere 7 questões de {materia} sobre {assunto} numeradas de 1 a 7 com um prefixo de
+            "content": f"""FAÇA EXATAMENTE DA FORMA QUE SE PEDE, gere 10 questões de {materia} sobre {assunto} numeradas de 1 a 10 com um prefixo de
                          "Questão <número da questão> - ", 
                          separe cada uma, exceto a ultima, por 'FIM DA QUESTÃO'"""
             }]
@@ -54,7 +54,7 @@ def respostas(questoes):
         "model": config.model,
         "messages":[{
             "role": "user",
-            "content": f"""FAÇA EXATAMENTE DA FORMA QUE SE PEDE,  responda essas questões {questoes} numerando elas  de 1 a 7, 
+            "content": f"""FAÇA EXATAMENTE DA FORMA QUE SE PEDE,  responda essas questões {questoes} numerando elas  de 1 a 10, 
                     com um prefixo de "Resposta <número da resposta> - ", 
                     separe cada uma por 'FIM DA RESPOSTA', exceto a ultima, """
             }]

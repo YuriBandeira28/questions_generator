@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect
 from pathlib import Path
 import gpt
+import salva_bd
 
 app = Flask(__name__)
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
+
 
 
 def send(assunto, materia):
@@ -27,6 +29,13 @@ def export_docx(perg, res):
                 t.write(f'\t{res[perg.index(p)]}')
                 t.write("\n")
                 t.write("\n")
+        with open("Gabarito.txt", "w") as txt: 
+            for p in perg:
+                txt.write(p)
+                txt.write("\n")
+                txt.write(f'\t{res[perg.index(p)]}')
+                txt.write("\n")
+                txt.write("\n")
         print("DOCX Gerado com Sucesso!!")
         return """DOCX Gerado com Sucesso!!"""
     
@@ -39,13 +48,17 @@ def relative_to_assets(path: str) -> Path:
 
 perguntas = []
 respostas = []
+assunto = ''
+materia = ''
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    assunto = ''
-    materia = ''
+
+    global assunto
+    global materia
     global perguntas
     global respostas
+   
     
     if request.method == 'POST':
         assunto = request.form.get('assunto')
@@ -65,10 +78,18 @@ def reset():
 def export():
     global perguntas
     global respostas
-    assunto = request.form.get('assunto')
-    materia = request.form.get('materia')
+   
     #preguntas, respostas = send(assunto, materia)
     resultado = export_docx(perguntas, respostas)
+    return render_template('index.html', resultado=resultado, perguntas=perguntas, respostas=respostas, assunto=assunto, materia=materia)
+
+@app.route('/save', methods=['POST'])
+def save():
+    
+
+
+    resultado = salva_bd.salva_bd(materia=materia, assunto=assunto, perguntas=perguntas, respostas=respostas)
+   
     return render_template('index.html', resultado=resultado, perguntas=perguntas, respostas=respostas, assunto=assunto, materia=materia)
 
 if __name__ == '__main__':

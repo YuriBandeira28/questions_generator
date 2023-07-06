@@ -52,6 +52,15 @@
                 <input type="hidden" name="materia" value="{{ materia }}">
                 <input type="hidden" name="assunto" value="{{ assunto }}">
                 <button type="submit" class="btn btn-primary">Gerar DOCX</button>
+
+
+            </form>
+
+            <form method="POST" action="/save" style="margin-top: 20px;">
+
+                <button type="submit" class="btn btn-primary">Salvar no Banco</button>
+                <br>
+
             </form>
         {% else %}
             <p>Nenhuma questão gerada.</p>
