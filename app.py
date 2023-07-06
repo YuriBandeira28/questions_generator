@@ -1,8 +1,5 @@
 from flask import Flask, render_template, request, redirect
 from pathlib import Path
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
-from reportlab.platypus import Paragraph
 import gpt
 
 app = Flask(__name__)
@@ -20,32 +17,22 @@ def send(assunto, materia):
     else:
         return [], []
 
-def export_pdf(perg, res):
-    parag = Paragraph
-
+def export_docx(perg, res):
+    
     try:
-        pdf = canvas.Canvas('Gababrito.pdf', pagesize=A4)
-        y = 850
-        for i, pergunta in enumerate(perg):
-            y -= 50
-            texto = parag(pergunta)
-            texto.wrapOn(pdf, 500, 100)
-            texto.drawOn(pdf, 20, y)
-            y -= 60
-            texto2 = parag(res[i])
-            texto2.wrapOn(pdf, 500, 100)
-            texto2.drawOn(pdf, 30, y)
-
-        pdf.setTitle("Gabarito")
-        pdf.setFont("Helvetica-Oblique", 14)
-        pdf.save()
-        print("finalizou")
-        return """PDF Gerado com Sucesso!!\n
-                    Nota: Pode ser que o PDF não esteja correto, caso ocorra, 
-                    ele pode ser gerado novamente"""
+        with open("Gabarito.docx", "w") as t: 
+            for p in perg:
+                t.write(p)
+                t.write("\n")
+                t.write(f'\t{res[perg.index(p)]}')
+                t.write("\n")
+                t.write("\n")
+        print("DOCX Gerado com Sucesso!!")
+        return """DOCX Gerado com Sucesso!!"""
+    
     except Exception as e:
         print(e)
-        return 'Houve Algum erro ao gerar o PDF!\nTente Novamente!'
+        return 'Houve Algum erro ao gerar o DOCX!\nTente Novamente!'
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -81,7 +68,7 @@ def export():
     assunto = request.form.get('assunto')
     materia = request.form.get('materia')
     #preguntas, respostas = send(assunto, materia)
-    resultado = export_pdf(perguntas, respostas)
+    resultado = export_docx(perguntas, respostas)
     return render_template('index.html', resultado=resultado, perguntas=perguntas, respostas=respostas, assunto=assunto, materia=materia)
 
 if __name__ == '__main__':
